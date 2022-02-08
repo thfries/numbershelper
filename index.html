@@ -40,23 +40,26 @@
       let solutions = [];
 
       function changeTarget() {
-        target = document.getElementById("targetSum").value;
+        target = parseDE(document.getElementById("targetSum").value);
         solve();
       }
 
       function changeInputValues() {
-        input = [];
-        document.getElementById("inputValues").value.split('\n').forEach(row => {
-          input.push(parseFloat(row.replace(',', '.')));
-        })
+        input = document.getElementById("inputValues").value;
+        input = input.split('\n').map(row => parseDE(row));
         solve();
+      }
+
+      function parseDE(n) {
+        n = n.replace('.', '').replace(',', '.');
+        return parseFloat(n);
       }
 
       function showSolution(s = 0) {
         var output = '';
         var solutionIndex = 0;
         for (var i = 0; i < input.length; i++) {
-          if (solutions[s][solutionIndex] == i) {
+          if (solutions.length > 0 && solutions[s][solutionIndex] == i) {
             output = output + '+';
             solutionIndex = solutionIndex + 1;
           };
